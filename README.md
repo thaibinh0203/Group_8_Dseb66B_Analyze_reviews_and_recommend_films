@@ -8,7 +8,7 @@ Especially, we use Streamlit to design web, share.streamlit.io to make the web u
 
 **HERE IS THE LINK FOR THE WEB** :  
 https://turphim88.streamlit.app/
-**(CAUTION:** If this analyzing reviews meet RunTimeError or do not give result, try to analyse AGAIN as the API deployment on Render with the freemode sometimes work kinda slow especially at the first input, from the second one it is much faster! **)**
+**(CAUTION:** If this analyzing reviews meet RunTimeError or do not give result, try to analyse AGAIN as the API deployment on Render with the freemode sometimes work kinda slow especially at the first input, from the second one it is much faster!**)**
 
 Also, we want to introduce different branches in our Github as we need different parts to be in different branches. 
 
@@ -18,7 +18,7 @@ Also, we want to introduce different branches in our Github as we need different
 
 - Third, regarding **Movie_Recommendations_Testing**, this a branch where we test the algorithm to test the film and run on localhost before converting to the last part is uploading to share.streamlit.io
 
-- Foruth, regarding **Homepage_Combine**, this is the last part of our proect, consisting of all things we did before, where we create a homepage to approach 2 functions, review.py where we load the web for Review_Sentiment_Machine_Learning model to practice and recommendations.py where we apply the algorithm for recommend we test before. 
+- Fourth, regarding **Homepage_Combine**, this is the last part of our proect, consisting of all things we did before, where we create a homepage to approach 2 functions, review.py where we load the web for Review_Sentiment_Machine_Learning model to practice and recommendations.py where we apply the algorithm for recommend we test before. 
 
 ---
 
