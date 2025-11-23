@@ -7,7 +7,7 @@ As mentioned, there are two main functions which is analyzing comments and movie
 Especially, we use Streamlit to design web, share.streamlit.io to make the web usable for users and Render to deploy our Machine Learning Model from notebook to API deployment.
 
 **HERE IS THE LINK FOR THE WEB** :  
-https://turphim88.streamlit.app/
+https://turphim888.streamlit.app/
 **(CAUTION:** If this analyzing reviews meet RunTimeError or do not give result, try to analyse AGAIN as the API deployment on Render with the freemode sometimes work kinda slow especially at the first input, from the second one it is much faster!**)**
 
 Also, we want to introduce different branches in our Github as we need different parts to be in different branches. 
