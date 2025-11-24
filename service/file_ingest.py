@@ -24,15 +24,55 @@ def _choose_text_col(df: pd.DataFrame, stt_key: str | None) -> str | None:
     return df.columns[0] if len(df.columns) else None
 
 def _looks_invalid_text(series: pd.Series) -> bool:
-    """'Xấu' nếu đa số là số/rỗng (không phải câu chữ)."""
-    # convert toàn bộ sang str
-    s = series.astype(str).str.strip()
-    # nếu k có thì nghĩa là review invalid
+    """
+    Xác định xem 1 cột có phải text 'đúng nghĩa' hay không.
+    INVALID nếu:
+        - quá nhiều NaN / rỗng
+        - quá nhiều giá trị dạng số
+        - độ dài trung bình thấp (dạng tên, mã sản phẩm)
+        - tỷ lệ dòng có câu dài < 20%
+    """
+    # Chuyển NaN thành "" để xử lý
+    s = series.fillna("").astype(str).str.strip().str.lower()
+
     if s.empty:
         return True
-    # True = 1, False = 0, lấy mean của cột, nếu hơn 60% cột invalid thì cột đó được xem là invalid
-    frac_bad = ((s == "") | s.str.fullmatch(r"\d+")).mean()
-    return frac_bad >= 0.6
+
+    # Loại bỏ chuỗi "nan" (đến từ pandas)
+    s = s.replace("nan", "")
+
+    if s.empty:
+        return True
+
+    # --- 1. Tính tỷ lệ rỗng ---
+    frac_empty = (s == "").mean()
+
+    # --- 2. Tính tỷ lệ số nguyên ---
+    frac_numeric = s.str.fullmatch(r"\d+").mean()
+
+    # --- 3. Độ dài trung bình ---
+    avg_len = s.str.len().mean()
+
+    # --- 4. Tỷ lệ các dòng có text "dài" (>= 8 ký tự) ---
+    frac_long = (s.str.len() >= 8).mean()
+
+    # --- QUY TẮC ĐÁNH GIÁ ---
+    # Nếu quá nhiều rỗng hoặc số → invalid
+    if frac_empty >= 0.5:
+        return True
+    if frac_numeric >= 0.5:
+        return True
+
+    # Nếu độ dài trung bình thấp (<5 ký tự) → giống cột Name / mã
+    if avg_len < 5:
+        return True
+
+    # Nếu <20% dòng có câu dài → không phải review
+    if frac_long < 0.2:
+        return True
+
+    return False
+
 
 # ---------- TXT ----------
 def parse_txt_bytes(b: bytes, encoding: str = "utf-8") -> list[tuple[str, str]]:
