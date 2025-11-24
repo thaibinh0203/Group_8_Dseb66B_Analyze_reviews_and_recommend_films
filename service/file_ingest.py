@@ -73,6 +73,8 @@ def parse_csv_bytes(b: bytes) -> list[tuple[str, str]]:
     # chọn stt và cột chứa text
     stt_key = lower_map.get("stt")
     txt_key = _choose_text_col(df, stt_key)
+    print("DEBUG columns =", list(df.columns))
+    print("DEBUG choose =", _choose_text_col(df, stt_key))
     # kiểm tra cột có valid không, nếu không thì tìm cột khác
     if stt_key and txt_key:
         s_stt = df[stt_key]
