@@ -98,7 +98,7 @@ def parse_txt_bytes(b: bytes, encoding: str = "utf-8") -> list[tuple[str, str]]:
 def parse_csv_bytes(b: bytes) -> list[tuple[str, str]]:
     # đoán seperator vì những file csv sẽ có nhiều kiểu seperator khác nhau 
     # biến bytes upload thành "file" trong RAM để Pandas đọc, thử các seperator và cho phép Pandas đọc regex separator
-    for sep_try in [None, ",", ";", r"\s+"]:
+    for sep_try in [None, ",", ";"]:
         try:
             df = pd.read_csv(io.BytesIO(b), sep=sep_try, engine="python")
             # nếu đọc thành công thì break
