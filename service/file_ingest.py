@@ -8,7 +8,9 @@ TEXT_ALIASES = ("text", "review", "content", "comment", "message")
 def _choose_text_col(df: pd.DataFrame, stt_key: str | None) -> str | None:
     # Ưu tiên theo alias
     # Chuẩn hoá tên cột: bỏ BOM \ufeff, strip và lower
-    lower_map = {c.replace("\ufeff", "").strip().lower(): c for c in df.columns}
+    import re
+    lower_map = {re.sub(r"\s+", "", c.lower()): c for c in df.columns}
+
     # nếu có cột chứa tên trong TEXT_ALIASES thì chọn cột đó
     for k in TEXT_ALIASES:
         if k in lower_map:
